@@ -2,6 +2,7 @@
 PwmOut fmclck(P2_5);                                    // for RESERVE pin21(P2_5) as PWM1[6], ATTENTION: this style brakes the nblocksStudio common practice
 // Generator
 nBlock_Generator::nBlock_Generator(uint32_t THECLOCK):{  // One Parameter: THECLOCK of the LPC1768
+uint32_t system_clock;
 system_clock = THECLOCK;
 int32_t divider = 96000;
 LPC_PWM1->TCR = (1 << 1);               				// 1)Reset counter, disable PWM
