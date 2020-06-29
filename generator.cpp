@@ -1,7 +1,7 @@
 #include "generator.h"
 PwmOut fmclck(P2_5);                                        // for RESERVE pin21(P2_5) as PWM1[6], ATTENTION: this style brakes the nblocksStudio common practice
 // Generator
-nBlock_Generator::nBlock_Generator(uint32_t THECLOCK):{     // Constructor, One Parameter: THECLOCK of the LPC1768
+nBlock_Generator::nBlock_Generator(uint32_t THECLOCK){     // Constructor, One Parameter: THECLOCK of the LPC1768
     uint32_t system_clock;
     int32_t divider = 96000;
     system_clock = THECLOCK;
@@ -24,8 +24,8 @@ uint32_t nBlock_Generator::readOutput(uint32_t outputNumber) {  // Pass the Carr
 }
 void nBlock_Generator::triggerInput(uint32_t inputNumber, uint32_t value) // Scan the inputs and prepare Carrot
     {   	
-	    uint32_t outFrequency;
-        int32_t divider;
+	uint32_t outFrequency;
+    int32_t divider;
     if (inputNumber == 0){                                      // "value" contains the Frequency
 	    divider = system_clock/value;
 	    outFrequency = system_clock/divider;
