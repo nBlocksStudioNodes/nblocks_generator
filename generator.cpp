@@ -15,7 +15,7 @@ uint32_t nBlock_Generator::readOutput(uint32_t outputNumber) {  // Pass the Carr
 
 void nBlock_Generator::triggerInput(uint32_t inputNumber, uint32_t value) // Scan the inputs and prepare Carrot
     { 
-    	_pwmo fmclck(P2_5);                    					// for RESERVE pin21(P2_5) as PWM1[6]
+    	PwmOut fmclck(P2_5);                    					// for RESERVE pin21(P2_5) as PWM1[6]
 	    int32_t divider;
 	    uint32_t outFrequency;
     if (inputNumber == 0){                                       // "value" contains the Frequency
