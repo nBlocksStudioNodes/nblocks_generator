@@ -13,8 +13,7 @@ public:
 private:
     fifo internal_fifo;
     uint32_t input_0;
-    uint32_t input_1;
-    PwmOut _pwmo;
+    uint32_t system_clock;
 };
 
 #endif
