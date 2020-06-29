@@ -5,7 +5,7 @@
 
 class nBlock_Generator: public nBlockNode {
 public:
-    nBlock_Generator(uint32_t CLOCK);
+    nBlock_Generator(uint32_t THECLOCK);
     uint32_t outputAvailable(uint32_t outputNumber);
     uint32_t readOutput(uint32_t outputNumber);
     void triggerInput(uint32_t inputNumber, uint32_t value);

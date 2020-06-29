@@ -1,7 +1,7 @@
 #include "generator.h"
 
 // Generator
-nBlock_Generator::nBlock_Generator(int32_t CLOCK):{             // One Parameter: CLOCK of the LPC1768
+nBlock_Generator::nBlock_Generator(int32_t THECLOCK):{             // One Parameter: THECLOCK of the LPC1768
     return;
 }
 uint32_t nBlock_Generator::outputAvailable(uint32_t outputNumber) { //Check for available Carrots
@@ -13,13 +13,14 @@ uint32_t nBlock_Generator::readOutput(uint32_t outputNumber) {  // Pass the Carr
     return tmp;
 }
 
-void nBlock_Generator::triggerInput(uint32_t inputNumber, uint32_t value) { // Scan the inputs and prepare Carrot
+void nBlock_Generator::triggerInput(uint32_t inputNumber, uint32_t value) // Scan the inputs and prepare Carrot
+    { 
     	_pwmo fmclck(P2_5);                    					// for RESERVE pin21(P2_5) as PWM1[6]
 	    int32_t divider;
 	    uint32_t outFrequency;
-    if(inputNumber == 0){                                       // "value" contains the Frequency
-	    divider = CLOCK/value;
-	    outFrequency = CLOCK/divider;
+    if (inputNumber == 0){                                       // "value" contains the Frequency
+	    divider = THECLOCK/value;
+	    outFrequency = THECLOCK/divider;
 	    LPC_PWM1->TCR = (1 << 1);               				// 1)Reset counter, disable PWM
         LPC_SC->PCLKSEL0 &= ~(0x3 << 12);  
         LPC_SC->PCLKSEL0 |= (1 << 12);          				// 2)Set peripheral clock divider to /1, i.e. system clock
