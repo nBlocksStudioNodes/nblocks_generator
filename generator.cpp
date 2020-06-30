@@ -1,10 +1,11 @@
 #include "generator.h"                                       // for RESERVE pin21(P2_5) as PWM1[6], ATTENTION: this style brakes the nblocksStudio common practice
 // Generator
-nBlock_Generator::nBlock_Generator(uint32_t THECLOCK){     // Constructor, One Parameter: THECLOCK of the LPC1768
+nBlock_Generator::nBlock_Generator(uint32_t THECLOCK, uint32_t freq){     // Constructor, One Parameter: THECLOCK of the LPC1768
     uint32_t system_clock;
-    int32_t divider = 96000;
-PwmOut fmclck(P2_5); 
+    int32_t divider;// = 96000;
     system_clock = THECLOCK;
+    divider = system_clock/freq;
+PwmOut fmclck(P2_5); 
     LPC_PWM1->TCR = (1 << 1);               				// 1)Reset counter, disable PWM
     LPC_SC->PCLKSEL0 &= ~(0x3 << 12);  
     LPC_SC->PCLKSEL0 |= (1 << 12);          				// 2)Set peripheral clock divider to /1, i.e. system clock
