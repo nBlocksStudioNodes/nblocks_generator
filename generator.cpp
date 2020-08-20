@@ -24,13 +24,13 @@ uint32_t nBlock_Generator::readOutput(uint32_t outputNumber) {  // Pass the Carr
     internal_fifo.read(&tmp);
     return tmp;
 }
-void nBlock_Generator::triggerInput(uint32_t inputNumber, uint32_t value) // Scan the inputs and prepare Carrot
+void nBlock_Generator::triggerInput(nBlocks_Message message) // Scan the inputs and prepare Carrot
     {   	
 	uint32_t outFrequency;
     int32_t divider;
     PwmOut fmclck(P2_5); 
-    if (inputNumber == 0){                                      // "value" contains the Frequency
-	    divider = system_clock/value;
+    if (message.inputNumber == 0){                                      // "value" contains the Frequency
+	    divider = system_clock/message.intValue;
 	    outFrequency = system_clock/divider;
 	    LPC_PWM1->TCR = (1 << 1);               				// 1)Reset counter, disable PWM
         LPC_SC->PCLKSEL0 &= ~(0x3 << 12);  
@@ -39,9 +39,9 @@ void nBlock_Generator::triggerInput(uint32_t inputNumber, uint32_t value) // Sca
         LPC_PWM1->MR6 = (divider + 1)>> 1;      				// 
         LPC_PWM1->LER |= 1;                     			    // 4)Start updating at next period start                       
     }
-    if(inputNumber ==1){                                        // "value" contains the ENABLE
-        if(value > 0 ) {LPC_PWM1->TCR = (1 << 0) || (1 << 3); } // 5)Enable counter and PWM 
-	    if(value == 0) {LPC_PWM1->TCR = (1 << 1);             } // 1)Reset counter, disable PWM 
+    if(message.inputNumber ==1){                                        // "value" contains the ENABLE
+        if(message.intValue > 0 ) {LPC_PWM1->TCR = (1 << 0) || (1 << 3); } // 5)Enable counter and PWM 
+	    if(message.intValue == 0) {LPC_PWM1->TCR = (1 << 1);             } // 1)Reset counter, disable PWM 
     } 
     internal_fifo.put(outFrequency);                            // pass calculated outFrequency to fifo	              									 
 }

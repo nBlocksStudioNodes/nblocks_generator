@@ -8,7 +8,7 @@ public:
     nBlock_Generator(uint32_t THECLOCK, uint32_t freq);
     uint32_t outputAvailable(uint32_t outputNumber);
     uint32_t readOutput(uint32_t outputNumber);
-    void triggerInput(uint32_t inputNumber, uint32_t value);
+    void triggerInput(nBlocks_Message message);
     void step(void);
 private:
     fifo internal_fifo;
